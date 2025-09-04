@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <title>음성 인식 & 예측 결과</title>
+    <style>
+      body { font-family: Arial, sans-serif; padding: 20px; }
+      h1, h2 { color: #333; }
+      p { line-height: 1.6; }
+      ol { margin-left: 20px; }
+      li { margin-bottom: 5px; }
+      a { color: #0066cc; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <h1>음성 → 텍스트 변환 결과</h1>
+
+    <!-- 1. 원문 -->
+    <h2>원문</h2>
+    <p>{{ raw_text }}</p>
+
+    <!-- 2. 단어 빈도 상위 10 -->
+    <h2>단어 빈도 상위 10</h2>
+    {% if top10 %}
+      <ol>
+        {% for word, count in top10 %}
+          <li><strong>{{ word }}</strong>: {{ count }}회</li>
+        {% endfor %}
+      </ol>
+    {% else %}
+      <p>분석할 단어가 없습니다.</p>
+    {% endif %}
+
+    <!-- 3. (선택) 예측 결과 -->
+    {% if prediction is defined %}
+    <h2>예측 결과</h2>
+    <p><strong>{{ prediction }}</strong></p>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('index') }}">← 처음으로 돌아가기</a>
+  </body>
+</html>
